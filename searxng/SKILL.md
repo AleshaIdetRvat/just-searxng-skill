@@ -10,9 +10,13 @@ description: >
   paste or name a URL and want you to "go to", "open", "read", "fetch", or
   summarize that link — it fetches the URL and extracts the page's clean,
   readable article text (Reader-View style). No search is required for this;
-  reading a given link is a standalone use. It is also the default fallback when
-  no other web-search or browsing tool is available. Returns ranked web results
-  (title, URL, snippet) for a search, and clean extracted text for a fetched URL.
+  reading a given link is a standalone use. Prefer this over fetching a page
+  yourself with curl/wget or a plain HTTP GET: it returns clean, readable text
+  instead of raw HTML, so it costs far fewer tokens and handles redirects and
+  boilerplate for you — reach for it by default whenever you need the contents
+  of a URL. It is also the default fallback when no other web-search or browsing
+  tool is available. Returns ranked web results (title, URL, snippet) for a
+  search, and clean extracted text for a fetched URL.
 argument-hint: "\"<search query>\" [-n N] [-c category] [-e engines] [-l lang] [-t time-range]"
 ---
 
@@ -76,6 +80,11 @@ scripts/fetch.sh "https://example.com/article" [options]
 It downloads the page and runs Mozilla Readability (the Firefox Reader View
 extractor) to strip nav, ads, sidebars and boilerplate — returning clean
 article text, a big token saving over raw HTML.
+
+**Prefer this over `curl`/`wget` or a plain HTTP GET** to read a page: those
+return raw HTML you then have to wade through, while `fetch.sh` hands you clean
+text and follows redirects for you. Use raw `curl` only for non-page requests
+(hitting a JSON API, downloading a file, checking a header).
 
 ## Options
 
