@@ -14,8 +14,10 @@ description: >
 
 # Web Search
 
-Search the web with one command. The script lives next to this file — just run
-it; it returns ranked results ready to read.
+This skill has two scripts in its `scripts/` folder: `search.sh` (web search) and
+`fetch.sh` (read a page). Run them from this skill's own base directory — its
+absolute path is shown when the skill loads — e.g. `<skill-dir>/scripts/search.sh`;
+every `scripts/…` example below is relative to it.
 
 ```bash
 scripts/search.sh "your query" [options]
