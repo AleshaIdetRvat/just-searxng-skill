@@ -1,0 +1,41 @@
+# Minimal SearXNG settings for local agent use.
+#
+# Two things here are essential and are OFF in the stock image:
+#   1. search.formats includes `json`  -> the JSON API is disabled by default,
+#      and without this every `format=json` request silently returns HTML.
+#   2. server.limiter: false           -> the bot/rate limiter blocks plain
+#      curl requests (403), so we turn it off for local single-user access.
+#
+# Everything else inherits SearXNG defaults via use_default_settings.
+# `__SECRET_KEY__` is replaced with a generated value on first launch.
+
+use_default_settings: true
+
+server:
+  secret_key: "__SECRET_KEY__"
+  limiter: false
+  public_instance: false
+  bind_address: "0.0.0.0"
+
+search:
+  formats:
+    - html
+    - json
+
+# Enable a few resilient, no-API-key engines *in addition to* the defaults.
+# SearXNG's stock general engines (brave, duckduckgo, google, startpage) suspend
+# themselves aggressively on rate limits / CAPTCHAs, and when they all trip at
+# once a query returns nothing. bing, mojeek and presearch use independent
+# indexes, rarely throttle, and need no key — so at least one keeps answering.
+# `use_default_settings: true` above means this list is MERGED into the defaults
+# by engine name (it does not replace them); we only flip `disabled` here.
+engines:
+  - name: bing
+    disabled: false
+  - name: mojeek
+    disabled: false
+  - name: presearch
+    disabled: false
+
+general:
+  debug: false
