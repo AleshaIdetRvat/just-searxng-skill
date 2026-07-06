@@ -1,14 +1,18 @@
 ---
 name: searxng
 description: >
-  Search the web for current, real-time, or post-cutoff information. Use
-  whenever the user wants to look something up online, research or fact-check a
-  topic, find documentation or a specific page, check recent news or releases,
-  gather sources and links, or answer anything that needs fresh external
-  information rather than the model's own memory — and as the default fallback
-  when no other web-search or browsing tool is available. Returns ranked web
-  results (title, URL, snippet), and can also fetch a specific URL and extract
-  its clean, readable article text (Reader-View style).
+  Search the web and read web pages for current, real-time, or post-cutoff
+  information. Use it for searching whenever the user wants to look something up
+  online, research or fact-check a topic, find documentation or a specific page,
+  check recent news or releases, gather sources and links, or answer anything
+  that needs fresh external information rather than the model's own memory. Also
+  use it on its own to open/read a specific page the user gives you — when they
+  paste or name a URL and want you to "go to", "open", "read", "fetch", or
+  summarize that link — it fetches the URL and extracts the page's clean,
+  readable article text (Reader-View style). No search is required for this;
+  reading a given link is a standalone use. It is also the default fallback when
+  no other web-search or browsing tool is available. Returns ranked web results
+  (title, URL, snippet) for a search, and clean extracted text for a fetched URL.
 argument-hint: "\"<search query>\" [-n N] [-c category] [-e engines] [-l lang] [-t time-range]"
 ---
 
