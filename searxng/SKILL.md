@@ -7,7 +7,8 @@ description: >
   gather sources and links, or answer anything that needs fresh external
   information rather than the model's own memory — and as the default fallback
   when no other web-search or browsing tool is available. Returns ranked web
-  results (title, URL, snippet).
+  results (title, URL, snippet), and can also fetch a specific URL and extract
+  its clean, readable article text (Reader-View style).
 argument-hint: "\"<search query>\" [-n N] [-c category] [-e engines] [-l lang] [-t time-range]"
 ---
 
@@ -56,15 +57,51 @@ Default output is ranked blocks:
 Results are **snippets, not full pages**:
 1. Search to get candidates.
 2. If a snippet already answers the question, use it and cite the URL.
-3. If you need the full content, fetch the URL (pass `--urls-only` to get a
-   clean list to loop over).
+3. If you need the full content of a page, read it with `scripts/fetch.sh`
+   (see below). Pass `--urls-only` to `search.sh` to get a clean URL list to
+   loop over.
 
-## When something needs attention
+# Reading a full page
 
-The script prints a clear, actionable message whenever anything needs handling —
-a temporary engine hiccup, an empty result, or a one-time setup step. **Read
-what it prints and do what it says** (retry, adjust flags, or run the command it
-shows), then re-run the search. You don't need to memorize any of that here.
+When a snippet isn't enough, fetch and extract the readable text of a page:
+
+```bash
+scripts/fetch.sh "https://example.com/article" [options]
+```
+
+It downloads the page and runs Mozilla Readability (the Firefox Reader View
+extractor) to strip nav, ads, sidebars and boilerplate — returning clean
+article text, a big token saving over raw HTML.
+
+## Options
+
+| Option | Meaning | Example |
+|---|---|---|
+| `-n, --max-chars N` | truncate output to N characters (default 100000) | `-n 4000` |
+| `-t, --timeout SEC` | HTTP timeout in seconds (default 25) | `-t 40` |
+| `--html` | Readability's cleaned HTML instead of plain text | |
+| `--json` | raw JSON `{url,title,byline,excerpt,length,text}` | |
+
+## Examples
+
+```bash
+# search, then read the top hit
+scripts/search.sh "rust axum tutorial" -n 1 --urls-only
+scripts/fetch.sh "https://…the-url…" -n 6000
+
+# structured output for programmatic use
+scripts/fetch.sh "https://en.wikipedia.org/wiki/Readability" --json
+```
+
+Reads HTML web pages only — PDFs, images and other non-HTML are rejected.
+
+# When something needs attention
+
+Either script prints a clear, actionable message whenever anything needs
+handling — a temporary engine hiccup, an empty result, a blocked page, or a
+one-time setup step. **Read what it prints and do what it says** (retry, adjust
+flags, or run the command it shows), then re-run. You don't need to memorize any
+of that here.
 
 ---
 

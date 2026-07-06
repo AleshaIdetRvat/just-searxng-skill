@@ -1,0 +1,11 @@
+{
+  "name": "searxng-agent-skill-reader",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Clean article extraction for the searxng agent skill (Mozilla Readability + linkedom).",
+  "dependencies": {
+    "@mozilla/readability": "^0.5.0",
+    "linkedom": "^0.18.5"
+  }
+}

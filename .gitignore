@@ -1,0 +1,3 @@
+# reader deps are installed automatically on first use of fetch.sh
+searxng/scripts/reader/node_modules/
+searxng/scripts/reader/package-lock.json

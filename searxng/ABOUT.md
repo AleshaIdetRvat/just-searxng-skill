@@ -20,8 +20,11 @@ URL, snippet). Nothing to sign up for, nothing to configure.
   Podman container and reuses it afterwards. The first call takes a few seconds;
   later calls are ~1s. A human is only involved if no container runtime exists
   at all — then the script prints the exact one-time install command.
-- **Snippet-first.** Results are snippets, not full pages; fetch a URL when you
-  need the full content.
+- **Snippet-first, with full-page reading on demand.** Search returns snippets,
+  not full pages. When you need the full content of a page, `scripts/fetch.sh`
+  downloads it and extracts clean, readable article text with Mozilla
+  Readability (the Firefox Reader View extractor) — stripping nav, ads and
+  boilerplate. Needs Node.js 18+; its deps install themselves on first use.
 
 ## How it works (in one line)
 
